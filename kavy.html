@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kávovník – Vyber si kávu</title>
+  <meta name="description" content="Vyber si z pěti osvědčených káv. Filtr i rychlé porovnání parametrů.">
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Hlavní navigace">
+      <a class="logo" href="./">Kávovník</a>
+      <ul class="nav__links">
+        <li aria-current="page"><a href="kavy.html">Kávy</a></li>
+        <li><a href="admin.html">Admin</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container section">
+    <header class="listing-header">
+      <h1>Naše kávy</h1>
+      <div class="filters">
+        <label class="sr-only" for="search">Hledat</label>
+        <input id="search" class="input" type="search" placeholder="Hledat kávu, původ, odrůdu…" />
+        <select id="sort" class="select" aria-label="Řazení">
+          <option value="name">Podle názvu (A–Z)</option>
+          <option value="price">Podle ceny</option>
+          <option value="origin">Podle původu</option>
+        </select>
+      </div>
+    </header>
+
+    <section id="coffee-list" class="grid grid--3" aria-live="polite"></section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__inner">
+      <p>&copy; <span id="year"></span> Kávovník</p>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { loadCoffees } from './assets/app.mjs';
+    import { getAllCoffees } from './assets/data.mjs';
+
+    const $list = document.getElementById('coffee-list');
+    const $search = document.getElementById('search');
+    const $sort = document.getElementById('sort');
+
+    let coffees = getAllCoffees();
+
+    const render = () => loadCoffees($list, coffees);
+    const filter = () => {
+      const q = ($search.value || '').toLowerCase().trim();
+      const sorted = [...coffees].sort((a,b) => {
+        const key = $sort.value;
+        if (key === 'price') return a.price - b.price;
+        return String(a[key] || '').localeCompare(String(b[key] || ''), 'cs');
+      });
+      const filtered = sorted.filter(c =>
+        [c.name, c.origin, c.process, c.variety, c.notes].join(' ').toLowerCase().includes(q)
+      );
+      loadCoffees($list, filtered);
+    };
+
+    render();
+    $search.addEventListener('input', filter);
+    $sort.addEventListener('change', filter);
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

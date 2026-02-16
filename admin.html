@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kávovník – Administrace</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav container">
+    <a class="logo" href="./">Kávovník</a>
+    <ul class="nav__links">
+      <li><a href="kavy.html">Kávy</a></li>
+      <li aria-current="page"><a href="admin.html">Admin</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="container section">
+  <h1>Administrace</h1>
+
+  <section id="login-box" class="card" aria-labelledby="login-title">
+    <h2 id="login-title">Přihlášení</h2>
+    <form id="login-form" class="form">
+      <label>Uživatel
+        <input name="user" class="input" autocomplete="username" required value="admin" />
+      </label>
+      <label>Heslo
+        <input name="pass" class="input" type="password" autocomplete="current-password" required />
+      </label>
+      <button class="btn btn--primary" type="submit">Přihlásit</button>
+      <p class="hint">Demo přihlášení běží pouze na klientovi (nevhodné pro produkci).</p>
+    </form>
+  </section>
+
+  <section id="admin-panel" class="hidden">
+    <header class="admin-bar">
+      <h2>Správa káv</h2>
+      <div class="admin-actions">
+        <button id="export-json" class="btn btn--ghost">Export JSON</button>
+        <label class="btn btn--ghost">
+          Import JSON <input id="import-json" type="file" accept="application/json" hidden>
+        </label>
+        <button id="logout" class="btn">Odhlásit</button>
+      </div>
+    </header>
+
+    <form id="create-form" class="form card">
+      <h3>Přidat kávu</h3>
+      <div class="grid grid--3">
+        <label>Název
+          <input name="name" class="input" required />
+        </label>
+        <label>Cena (Kč)
+          <input name="price" class="input" type="number" min="0" step="1" required />
+        </label>
+        <label>Původ
+          <input name="origin" class="input" placeholder="např. Etiopie" />
+        </label>
+      </div>
+      <div class="grid grid--3">
+        <label>Odrůda
+          <input name="variety" class="input" placeholder="např. Heirloom" />
+        </label>
+        <label>Zpracování
+          <input name="process" class="input" placeholder="Washed / Natural / Honey…" />
+        </label>
+        <label>Obrázek (URL)
+          <input name="image" class="input" placeholder="volitelné; nebo ponech prázdné" />
+        </label>
+      </div>
+      <label>Poznámky / chuťový profil
+        <textarea name="notes" class="input" rows="2" placeholder="např. meruňka, kakao, jasmín"></textarea>
+      </label>
+      <button class="btn btn--primary" type="submit">Přidat</button>
+    </form>
+
+    <table class="table" aria-describedby="table-caption">
+      <caption id="table-caption" class="sr-only">Seznam káv k úpravě nebo smazání</caption>
+      <thead>
+        <tr>
+          <th>Název</th>
+          <th>Cena</th>
+          <th>Původ</th>
+          <th>Odrůda</th>
+          <th>Zprac.</th>
+          <th>Poznámky</th>
+          <th>Akce</th>
+        </tr>
+      </thead>
+      <tbody id="admin-list"></tbody>
+    </table>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer__inner">
+    <p>&copy; <span id="year"></span> Kávovník</p>
+  </div>
+</footer>
+
+<!-- ES Modules -->
+<script type="module" src="./assets/admin.mjs"></script>
+<!-- Fallback pro starší prohlížeče / file:// restrikce -->
+<script nomodule src="./assets/admin.bundle.js"></script>
+<noscript><p style="padding:1rem" class="card">Pro administraci je potřeba povolit JavaScript.</p></noscript>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

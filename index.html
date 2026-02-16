@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kávovník – výběrová káva čerstvě pražená</title>
+  <meta name="description" content="Výběr pěti pečlivě zvolených káv. Čerstvě a srozumitelně.">
+  <meta property="og:title" content="Kávovník – výběrová káva" />
+  <meta property="og:description" content="Vyber si kávu podle chuti. Čerstvě pražené, férově popsané." />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>">
+  <style>
+    /* Hero background photo (Unsplash) */
+    .hero{background: url('https://images.unsplash.com/photo-1504630083234-14187a9df0f5?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat; border-radius: 16px; overflow:hidden}
+    .hero::after{content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(0,0,0,.6),rgba(0,0,0,.15));}
+    .hero .hero__grid{position:relative; z-index:1; display:grid; grid-template-columns:1.1fr .9fr; gap:2rem; align-items:center}
+    @media (max-width:900px){ .hero .hero__grid{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Hlavní navigace">
+      <a class="logo" href="./">Kávovník</a>
+      <ul class="nav__links">
+        <li><a href="kavy.html">Kávy</a></li>
+        <li><a href="admin.html" aria-label="Administrace">Admin</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container p-xl">
+      <div class="hero__grid">
+        <div class="hero__content glass">
+          <h1>Čerstvá výběrová káva, bez složitostí.</h1>
+          <p class="lead">
+            Pečlivě vybraná zrna, poctivé popisy a rychlý výběr. Začni s naší pěticí osvědčených káv.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn--primary" href="kavy.html">Vybrat kávu</a>
+            <a class="btn btn--ghost" href="admin.html" aria-label="Přejít do administrace">Administrace</a>
+          </div>
+          <ul class="usp" role="list">
+            <li>🫘 Výběrová zrna</li>
+            <li>📦 Čerstvě baleno</li>
+            <li>🛡️ 14 dní na vrácení</li>
+          </ul>
+        </div>
+        <div class="hero__media">
+          <figure class="card card--photo">
+            <img loading="lazy" alt="Espresso v šálku" src="https://images.unsplash.com/photo-1498804103079-a6351b050096?q=80&w=1200&auto=format&fit=crop" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section">
+      <h2>Jak vybíráme</h2>
+      <div class="grid grid--2">
+        <article class="card">
+          <h3>Chuť na první místo</h3>
+          <p>Popisujeme reálné chuťové profily, ne marketingové fráze.</p>
+        </article>
+        <article class="card">
+          <h3>Transparentnost</h3>
+          <p>U každé kávy uvádíme původ, odrůdu, zpracování a doporučenou přípravu.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__inner">
+      <p>&copy; <span id="year"></span> Kávovník. Všechna práva vyhrazena.</p>
+      <nav aria-label="Spodní navigace">
+        <a href="kavy.html">Kávy</a> · <a href="admin.html">Admin</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
